@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <title>Institute for Technical Education</title>
+  
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/jumbotron-narrow.css" rel="stylesheet">
+ 
+</head>
+ 
+<body>
+ 
+    <div class="container">
+        <div class="header">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+                    <li role="presentation" class="active"><a href="#">Home</a>
+                </ul>
+            </nav>
+            <img src="../static/images/logo.png"/> 
+        </div>
+        
+        <div>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                {% for category, message in messages %}
+                  <div class="alert alert-{{ category }}">
+                    {{ message }}
+                  </div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+            {% block content %}{% endblock %}
+      </div>
+
+        <div class="jumbotron">
+            <h1>Linux Essentials</h1>
+            <p class="lead"></p>
+            {% if current_user.is_authenticated %}
+              <p> <a class="btn btn-lg btn-success" href="{{ url_for('objective') }}" role="button">Start Exam</a></p>
+              <p> <a class="btn btn-lg btn-success" href="{{ url_for('logout') }}" role="button">Sign Out</a></p>
+            {% else %}
+              <p><a class="btn btn-lg btn-success" href="{{ url_for('register') }}" role="button">Sign Up</a>
+              </p>
+              <p> <a class="btn btn-lg btn-success" href="{{ url_for('login') }}" role="button">Sign In</a></p>
+            {% endif %}
+        </div>
+ 
+        <footer class="footer">
+            <p>&copy;Palash_Chaturvedi 2019</p>
+        </footer>
+ 
+    </div>
+</body>
+ 
+</html>
