@@ -6,6 +6,21 @@
     <title>Objective Section</title>
     <link href="../static/css/bootstrap.min.css" rel="stylesheet">
     <link href="../static/css/jumbotron-narrow.css" rel="stylesheet">
+    <style type="text/css">
+        .question-correct:after {
+            content: "✓";
+            font-size: 30px;
+            color: green;
+            padding-left: 10px;
+        }
+
+        .question-incorrect:after {
+            content: "✗";
+            font-size: 30px;
+            color: red;
+            padding-left: 10px;
+        }
+    </style>
 	
 	<link rel="stylesheet" type="text/css" href="../static/css/obj.css" />
 </head>
@@ -22,15 +37,22 @@
             </nav>
     </div>
 
-	<div id='content'>
-        <span id='title'>All Quizzes</span>
-        <ul>
-            {% for id, name in quiz_names %}
-                <li><a href="{{url_for('quiz', id=id)}}">{{name}}</a></li>
-            {% endfor %}
-        </ul>
-    </div>
+    {% block page_title %}{{quiz['name']}} - Checking ({{correct}} / {{total}}){% endblock %}
     
+    {% for question, choice in question_answer %}
+        <div>
+            <h4 {% if choice[1] %} class="question-correct" {% else %} class="question-incorrect" {% endif %}>{{question['text']|safe}}</h4>
+            {% for answer in question['options'] %}
+                <p {% if answer[1] %} class="question-correct" {% elif not answer[1] %} class="question-incorrect" {% endif %}>
+                    {{answer[0]|safe}} {% if answer == choice %} - <strong> Chosen </strong> {% endif %}
+                </p>
+            {% endfor %}
+        </div>
+        {% if loop.revindex0 > 0 %}
+            <hr />
+        {% endif %}
+    {% endfor %}
+	
     <footer class="footer">
             <p>&copy;Palash_Chaturvedi 2019</p>
     </footer>

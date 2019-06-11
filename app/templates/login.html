@@ -16,10 +16,10 @@
       <div class="header">
         <nav>
           <ul class="nav nav-pills pull-right">
-            <li role="presentation" ><a href="/">Home</a></li>
+            <li role="presentation" ><a href="{{ url_for('home') }}">Home</a></li>
           </ul>
         </nav>
-        <img src="../static/images/logo.png"/ >
+        <img src="../static/images/logo.png"/>
       </div>
     
       {% with messages = get_flashed_messages(with_categories=true) %}

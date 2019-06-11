@@ -1,0 +1,109 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	
+    <title>Practical Section</title>
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/jumbotron-narrow.css" rel="stylesheet">
+	
+	<link rel="stylesheet" type="text/css" href="../static/css/obj.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+                    <li role="presentation" class="w3-left active"><a href="{{ url_for('home') }}">Home</a>
+                    <li role="presentation" class="w3-right active"><a href="{{ url_for('logout') }}">Sign Out</a>   
+                </ul>
+                
+            </nav>
+    </div>
+
+    
+
+	<div id="page-wrap">
+
+            <div>
+                    <h1>Practical Questions</h1>
+                    <h8>Solve the following questions in the Server Virtual Machine</h8>
+            </div>
+		
+		<form action="grade.php" method="post" id="quiz">
+		
+            <ol>
+                
+            
+                <li>
+                
+                    <h3>Set SELinux to Enforcing mode</h3>
+                
+                </li>
+                
+                <li>
+                
+                    <h3>Create a group named "sysadmin" and "manager".
+                        A user sarah and natasha should belongs to "manager" group as a  secondary group . 
+                        A user harry should not have access to interactive shell and he should  not be a member of "manager" group. 
+                        passwd for all user created should  be "password".</h3>
+                
+                </li>
+                
+                <li>
+                
+                    <h3>Create the Directory "/home/manager" with the following characteristics. 
+                        Group ownership of "/home/manager" should go to "manager" group. 
+                        The directory should be have full permission for all members off "manager" group but not to any other users accept "root". 
+                        Files created under "/home/manager" should get the same group ownership is set to the "manager" group</h3>
+                   
+                </li>
+                
+                <li>
+                
+                    <h3>The  user sarah must configure a cron job that runs today at 14:23 and executes /bin/echo "hyer" and deny the max user for creating  cronjob</h3>
+                    
+                </li>
+                
+                <li>
+                
+                    <h3>Copy file /etc/fstab to /var/tmp and configure the "ACL" as mentioned :-
+
+                            The file /var/tmp/fstab is owned by the "root". The file /var/tmp/fstab belongs to the group "root". 
+                            The file /var/tmp/fstab should not be executable by other's. 
+                            User "sarah" should able to read and write to the file. User "natasha" can neither read nor write to the file. 
+                            Other users (future and current) should be able to read /var/tmp/fstab.</h3>
+                    
+                </li>
+
+                <li>
+                    <h3>Create the user "dax" with uid 4223</h3>
+                </li>
+            
+            </ol>
+            
+            <input type="submit" value="Submit" />
+		
+        </form>
+        
+	
+    </div>
+    
+    <footer class="footer">
+            <p>&copy;Palash_Chaturvedi 2019</p>
+    </footer>
+	
+	<!-- <script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+	var pageTracker = _gat._getTracker("UA-68528-29");
+	pageTracker._initData();
+	pageTracker._trackPageview();
+	</script> -->
+
+</body>
+
+</html>

@@ -20,12 +20,9 @@ class User(db.Model, UserMixin):
 class Quiz(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    q1 = db.Column(db.String(100), nullable=False)
-    q2 = db.Column(db.String(100), nullable=False)
-    q3 = db.Column(db.String(100), nullable=False)
-    q4 = db.Column(db.String(100), nullable=False)
-    q5 = db.Column(db.String(100), nullable=False)
+    score = db.Column(db.Integer, nullable=False, default=0)
+
     
     def __repr__(self):
-        return f"Quiz('{self.user_id}', '{self.q1}', '{self.q2}', '{self.q3}', '{self.q4}', '{self.q5}')"
+        return f"Quiz('{self.user_id}', '{self.score}')"
 
