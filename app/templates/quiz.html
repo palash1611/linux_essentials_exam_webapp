@@ -22,6 +22,18 @@
             </nav>
     </div>
 
+    {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                {% for category, message in messages %}
+                  <div class="alert alert-{{ category }}">
+                    {{ message }}
+                  </div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+            {% block content %}
+    {% endblock %}
+
     <form method="post" action="/check_quiz/{{id}}">
         <input type="hidden" name="ord" value="{{quiz_ordering}}" />
 

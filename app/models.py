@@ -12,17 +12,25 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     college = db.Column(db.String(20), nullable=False)
     password = db.Column(db.String(60), nullable=False)
-    quiz = db.relationship('Quiz', backref='student', lazy=True)
+    quiz = db.relationship('Quiz', backref='user', uselist=False)
+    machine_no = db.relationship('Practical', uselist=False, backref='user')
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}', '{self.college}')"
 
 class Quiz(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     score = db.Column(db.Integer, nullable=False, default=0)
 
-    
     def __repr__(self):
         return f"Quiz('{self.user_id}', '{self.score}')"
+
+class Practical(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    machine_no = db.Column(db.Integer, nullable=False, default=0)
+    
+    def __repr__(self):
+        return f"Quiz('{self.user_id}', '{self.machine_no}')"
 

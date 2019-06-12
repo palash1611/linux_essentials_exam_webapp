@@ -1,0 +1,52 @@
+{
+    "name": "Linux Essentials",
+    "description": "Objective type questions on Basic Linux!",
+    "questions": [
+        {
+            "text": "Which command(s) is/are used to get help about a command in Linux?",
+            "options": [
+                ["man", false],
+                ["info", false],
+                ["Both A and B", true],
+                ["None", false]
+            ]
+        },
+        {
+            "text": "Which command is used to get the kernel version in Linux?",
+            "options": [
+                ["uname -r", true],
+                ["kernel", false],
+                ["uname -n", false],
+                ["uname -s", false]
+            ]
+        },
+        {
+            "text": "Which command is used to list all the files in your current directory(including hidden)",
+            "options": [
+                ["ls -l", false],
+                ["ls -t", false],
+                ["ls -a", true],
+                ["ls -i", false]
+            ]
+        },
+        {
+            "text": "Which command is/are used to remove directory in Linux?",
+            "options": [
+                ["rmdir", false],
+                ["rm  -r", false],
+                ["Only A", false],
+                ["Both A and B", true]
+                
+            ]
+        },
+        {
+            "text": "Which of the following command is used to create file in Linux?",
+            "options": [
+                ["touch", false],
+                ["cat", false],
+                ["echo", false],
+                ["All of the above", true]
+            ]
+        }
+    ]
+}

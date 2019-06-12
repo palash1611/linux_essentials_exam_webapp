@@ -1,6 +1,6 @@
 from flask import render_template, json, request, redirect, url_for, flash, request
-from app.models import User, Quiz
-from app.form import RegistrationForm, LoginForm
+from app.models import User, Quiz, Practical
+from app.form import RegistrationForm, LoginForm, PracticalForm
 from app import app, db, bcrypt
 from flask_login import login_user, current_user, logout_user, login_required
 import os
@@ -60,6 +60,7 @@ def objective():
     return render_template('objective.html', quiz_names=zip(quizzes.keys(), map(lambda q: q['name'], quizzes.values())))
 
 @app.route('/quiz/<id>')
+@login_required
 def quiz(id):
     if id not in quizzes:
         return flask.abort(404)
@@ -73,18 +74,20 @@ def quiz(id):
 
 
 @app.route('/check_quiz/<id>', methods=['POST'])
+@login_required
 def check_quiz(id):
     ordering = json.loads(flask.request.form['ord'])
     quiz = copy.deepcopy(quizzes[id])
-    print (flask.request.form)
+    # print (flask.request.form)
     quiz['questions'] = sorted(quiz['questions'], key=lambda q: ordering.index(quiz['questions'].index(q)))
-    print (quiz['questions'])
+    # print (quiz['questions'])
     answers = dict( (int(k), quiz['questions'][int(k)]['options'][int(v)]) for k, v in flask.request.form.items() if k != 'ord' )
 
-    print (answers)
+    # print (answers)
 
     if not len(answers.keys()):
-        return flask.redirect(flask.url_for('quiz', id=id))
+        flash(f'Please answer all questions','danger')
+        return redirect(url_for('quiz', id=id))
 
     for k in range(len(ordering)):
         if k not in answers:
@@ -94,6 +97,19 @@ def check_quiz(id):
     number_correct = len(list(filter(lambda t: t[1], answers_list)))
 
     return flask.render_template('check_quiz.html', quiz=quiz, question_answer=zip(quiz['questions'], answers_list), correct=number_correct, total=len(answers_list))
+
+@app.route('/start_practical', methods=['GET', 'POST'])
+@login_required
+def start_practical():
+    form = PracticalForm()
+    if form.validate_on_submit():
+        prac = Practical(machine_no = form.machine_no.data, user=current_user)
+        # db.session.query(Practical).delete()
+        db.session.add(prac)
+        db.session.commit()
+        return redirect(url_for('practical'))
+    return render_template('start_practical.html', form=form)
+
 
 @app.route('/practical')
 @login_required

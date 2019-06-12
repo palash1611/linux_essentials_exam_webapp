@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <title>Practical Section</title>
+  
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/jumbotron-narrow.css" rel="stylesheet">
+ 
+</head>
+ 
+<body>
+ 
+    <div class="container">
+        <div class="header">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+                  <li role="presentation" class="w3-left active"><a href="{{ url_for('home') }}">Home</a>
+                    <li role="presentation" class="w3-right active"><a href="{{ url_for('logout') }}">Sign Out</a> 
+                </ul>
+            </nav>
+        </div>
+        
+        <div>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                {% for category, message in messages %}
+                  <div class="alert alert-{{ category }}">
+                    {{ message }}
+                  </div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+            {% block content %}{% endblock %}
+      </div>
+
+        <div class="jumbotron">
+            
+            <p class="lead"></p>
+
+            <div class="content-section">
+              <form method="POST" action="">
+                  {{ form.hidden_tag() }}
+                  <fieldset class="form-group">
+                      <legend class="border-bottom mb-4">Practical Section</legend>
+                      
+                      <div class="form-group">
+                          {{ form.machine_no.label(class="form-control-label") }}
+                          {% if form.machine_no.errors %}
+                              {{ form.machine_no(class="form-control form-control-lg is-invalid") }}
+                              <div class="invalid-feedback">
+                                  {% for error in form.machine_no.errors %}
+                                      <span>{{ error }}</span>
+                                  {% endfor %}
+                              </div>
+                          {% else %}
+                              {{ form.machine_no(class="form-control form-control-lg") }}
+                          {% endif %}
+                      </div>
+      
+                  </fieldset>
+                  <div class="form-group">
+                      {{ form.submit(class="btn btn-outline-info") }}
+                  </div>
+      
+              </form>
+          </div>
+
+              
+            
+        </div>
+
+        <div><h8>NOTE: If you've already attempted the practical section then, simply signout and contact the faculty incharge for the results.</h8></div>
+ 
+        <footer class="footer">
+            <p>&copy;Palash_Chaturvedi 2019</p>
+        </footer>
+ 
+    </div>
+</body>
+ 
+</html>

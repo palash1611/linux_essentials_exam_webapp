@@ -39,7 +39,7 @@
             <p class="lead"></p>
             {% if current_user.is_authenticated %}
               <p> <a class="btn btn-lg btn-success" href="{{ url_for('objective') }}" role="button">Objective Section</a></p>
-              <p> <a class="btn btn-lg btn-success" href="{{ url_for('practical') }}" role="button">Practical Section</a></p>
+              <p> <a class="btn btn-lg btn-success" href="{{ url_for('start_practical') }}" role="button">Practical Section</a></p>
               <p> <a class="btn btn-lg btn-success" href="{{ url_for('logout') }}" role="button">Sign Out</a></p>
             {% else %}
               <p><a class="btn btn-lg btn-success" href="{{ url_for('register') }}" role="button">Sign Up</a>
