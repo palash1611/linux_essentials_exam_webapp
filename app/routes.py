@@ -95,8 +95,12 @@ def check_quiz(id):
 
     answers_list = [ answers[k] for k in sorted(answers.keys()) ]
     number_correct = len(list(filter(lambda t: t[1], answers_list)))
-
-    return flask.render_template('check_quiz.html', quiz=quiz, question_answer=zip(quiz['questions'], answers_list), correct=number_correct, total=len(answers_list))
+    quiz = Quiz(score = number_correct, user=current_user)
+    db.session.add(quiz)
+    db.session.commit()
+    flash(f'Answers submitted successfully','success')
+    return redirect(url_for("home"))
+    # return flask.render_template('check_quiz.html', quiz=quiz, question_answer=zip(quiz['questions'], answers_list), correct=number_correct, total=len(answers_list))
 
 @app.route('/start_practical', methods=['GET', 'POST'])
 @login_required
@@ -107,6 +111,7 @@ def start_practical():
         # db.session.query(Practical).delete()
         db.session.add(prac)
         db.session.commit()
+        
         return redirect(url_for('practical'))
     return render_template('start_practical.html', form=form)
 
