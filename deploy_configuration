@@ -1,0 +1,72 @@
+apt install python3-pip
+apt install python3-venv
+python3 -m venv <folder_name>/venv
+
+source venv/bin/activate
+pip3 install -r requirements.txt
+
+
+flask run --host=0.0.0.0
+
+sudo apt install nginx 
+pip install gunicorn
+
+
+sudo rm /etc/nginx/sites-enabled/default
+
+vim /etc/nginx/sites-enabled/<app_name>
+
+******
+
+server {
+    listen 80;
+    server_name 127.0.0.1;
+
+    location /static {
+        alias /home/YOUR_USER/YOUR_PROJECT/<app_name>/static;
+    }
+
+    location / {
+        proxy_pass http://localhost:8000;
+        include /etc/nginx/proxy_params;
+        proxy_redirect off;
+    }
+}
+
+******
+
+sudo systemctl restart nginx
+
+gunicorn -w 3 run:app (workers = 2x(no_of_cores)+1)
+
+to check no of cores -> nproc --all
+
+****
+
+sudo apt install supervisor
+
+vim /etc/supervisor/conf.d/app_name.conf
+
+*******
+
+[program:app]
+directory=/home/YOUR_USER/YOUR_PROJECT
+command=/home/YOUR_USER/YOUR_PROJECT/venv/bin/gunicorn -w 3 run:app
+user=YOUR_USER
+autostart=true
+autorestart=true
+stopasgroup=true
+killasgroup=true
+stderr_logfile=/var/log/app_name/app_name.err.log
+stdout_logfile=/var/log/app/app_name.out.log
+
+*******
+
+
+
+mkdir -p /var/log/app_name
+touch /var/log/app_name/app_name.err.log
+touch /var/log/app_name/app_name.out.log
+
+
+sudo supervisorctl reload
